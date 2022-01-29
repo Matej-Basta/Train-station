@@ -1,0 +1,20 @@
+.table-head {
+  width: 100%;
+  /* background-color: black; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-row {
+  color: white;
+  background-color: rgba(255, 0, 0, 0.7);
+}
+
+.table-row:nth-child(even) {
+  background-color: rgba(0, 0, 255, 0.7);
+}
+
+.table-cell {
+  padding: 1rem;
+  text-align: center;
+}
