@@ -115,7 +115,7 @@ const keys = Object.keys(newestDepartures[0]);
 console.log(keys);
 
 keys.forEach((element) => {
-  document.querySelector("thead").innerHTML += `
+  document.querySelector("tr").innerHTML += `
   <th class="table-heading">${element.toUpperCase()}</th>
   `;
 });
