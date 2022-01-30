@@ -120,6 +120,13 @@ keys.forEach((element) => {
   `;
 });
 
+//function that creates a DOM based on HTML
+const creatingHTML = (html) => {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.firstChild;
+};
+
 //creating the DOM elements for all the array items
 newestDepartures.forEach((element) => {
   const tableRow = document.createElement("tr");
@@ -133,19 +140,32 @@ newestDepartures.forEach((element) => {
    <td class="table-cell">${element.track}</td>
    <td class="table-cell"><button>Status</button></td>`;
 
-  //giving the button a functionality
+  document.querySelector("tbody").appendChild(tableRow);
+
   const button = tableRow.querySelector("button");
-
   button.addEventListener("click", () => {
-    tableRow.classList.toggle("delayed");
-    tableRow.classList.toggle("table-row");
-    const status = tableRow.querySelector("td[id='status']");
+    button.parentNode.parentNode.classList.toggle("delayed");
+    button.parentNode.parentNode.classList.toggle("table-row");
+    const status =
+      button.parentNode.parentNode.querySelector("td[id='status']");
 
+    let input;
     //changing the text in the table
-    if (status.textContent == "Delayed") {
+    if (status.textContent !== "On Time" && status.textContent !== "") {
       status.textContent = "On Time";
     } else {
-      status.textContent = "Delayed";
+      status.textContent = "";
+      input = creatingHTML(
+        "<input type='number' placeholder='Number of minutes'>"
+      );
+      status.appendChild(input);
+
+      status.addEventListener("keyup", (event) => {
+        if (event.code === "Enter") {
+          const minutes = Number(input.value);
+          status.textContent = `${minutes}min delay`;
+        }
+      });
     }
 
     //changing the status in an array element
@@ -155,6 +175,6 @@ newestDepartures.forEach((element) => {
       element.status = "Delayed";
     }
   });
-
-  document.querySelector("tbody").appendChild(tableRow);
 });
+//giving the button a functionality
+const buttonArray = document.querySelectorAll("button");
