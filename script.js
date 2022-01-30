@@ -121,12 +121,16 @@ keys.forEach((element) => {
 });
 
 newestDepartures.forEach((element) => {
-  document.querySelector("tbody").innerHTML += `<tr class="table-row">
-  <td class="table-cell">${element.time.hrs}:${element.time.mins}</td>
-  <td class="table-cell">${element.train}</td>
-  <td class="table-cell">${element.no}</td>
-  <td class="table-cell">${element.to}</td>
-  <td class="table-cell">${element.status}</td>
-  <td class="table-cell">${element.track}</td>
-  </tr>`;
+  const tableRow = document.createElement("tr");
+  tableRow.classList.add("table-row");
+
+  tableRow.innerHTML = `<td class="table-cell">${element.time.hrs}:${element.time.mins}</td>
+   <td class="table-cell">${element.train}</td>
+   <td class="table-cell">${element.no}</td>
+   <td class="table-cell">${element.to}</td>
+   <td class="table-cell">${element.status}</td>
+   <td class="table-cell">${element.track}</td>
+   <td class="table-cell"><button>Status</button></td>`;
+
+  document.querySelector("tbody").appendChild(tableRow);
 });
