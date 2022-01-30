@@ -141,10 +141,18 @@ newestDepartures.forEach((element) => {
     tableRow.classList.toggle("table-row");
     const status = tableRow.querySelector("td[id='status']");
 
+    //changing the text in the table
     if (status.textContent == "Delayed") {
       status.textContent = "On Time";
     } else {
       status.textContent = "Delayed";
+    }
+
+    //changing the status in an array element
+    if (element.status == "Delayed") {
+      element.status = "On Time";
+    } else {
+      element.status = "Delayed";
     }
   });
 
