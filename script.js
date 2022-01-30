@@ -142,20 +142,22 @@ newestDepartures.forEach((element) => {
 
   document.querySelector("tbody").appendChild(tableRow);
 
+  //adding features to the butotn
   const button = tableRow.querySelector("button");
   button.addEventListener("click", () => {
+    //changing the color of the row
     button.parentNode.parentNode.classList.toggle("delayed");
     button.parentNode.parentNode.classList.toggle("table-row");
+
+    //changing the text in the table
     const status =
       button.parentNode.parentNode.querySelector("td[id='status']");
 
-    let input;
-    //changing the text in the table
     if (status.textContent !== "On Time" && status.textContent !== "") {
       status.textContent = "On Time";
     } else {
       status.textContent = "";
-      input = creatingHTML(
+      const input = creatingHTML(
         "<input type='number' placeholder='Number of minutes'>"
       );
       status.appendChild(input);
@@ -176,5 +178,3 @@ newestDepartures.forEach((element) => {
     }
   });
 });
-//giving the button a functionality
-const buttonArray = document.querySelectorAll("button");
