@@ -111,8 +111,8 @@ const newestDepartures = [
   },
 ];
 
+//accessing all the keys and creating a table head based on them
 const keys = Object.keys(newestDepartures[0]);
-console.log(keys);
 
 keys.forEach((element) => {
   document.querySelector("tr").innerHTML += `
@@ -120,6 +120,7 @@ keys.forEach((element) => {
   `;
 });
 
+//creating the DOM elements for all the array items
 newestDepartures.forEach((element) => {
   const tableRow = document.createElement("tr");
   tableRow.classList.add("table-row");
@@ -128,9 +129,24 @@ newestDepartures.forEach((element) => {
    <td class="table-cell">${element.train}</td>
    <td class="table-cell">${element.no}</td>
    <td class="table-cell">${element.to}</td>
-   <td class="table-cell">${element.status}</td>
+   <td class="table-cell" id="status">${element.status}</td>
    <td class="table-cell">${element.track}</td>
    <td class="table-cell"><button>Status</button></td>`;
+
+  //giving the button a functionality
+  const button = tableRow.querySelector("button");
+
+  button.addEventListener("click", () => {
+    tableRow.classList.toggle("delayed");
+    tableRow.classList.toggle("table-row");
+    const status = tableRow.querySelector("td[id='status']");
+
+    if (status.textContent == "Delayed") {
+      status.textContent = "On Time";
+    } else {
+      status.textContent = "Delayed";
+    }
+  });
 
   document.querySelector("tbody").appendChild(tableRow);
 });
