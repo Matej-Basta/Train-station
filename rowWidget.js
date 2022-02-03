@@ -1,5 +1,4 @@
-//creating a Row Widget
-class RowWidget {
+export class RowWidget {
   constructor(hours, minutes, train, no, to, status, track) {
     this.element = document.createElement("tr");
     this.hours = hours;
@@ -56,88 +55,6 @@ class RowWidget {
         this.status = "Delayed";
       }
     });
-    //adding the row to the table
     document.querySelector("tbody").appendChild(this.element);
   }
 }
-
-//creating a class for train
-class Train {
-  constructor(time, train, no, to, status, track) {
-    this.no = no;
-    this.hours = time.hrs;
-    this.minutes = time.mins;
-    this.to = to;
-    this.track = track;
-    this.train = train;
-    this.status = status;
-  }
-
-  createOnPage() {
-    const row = new RowWidget(
-      this.hours,
-      this.minutes,
-      this.train,
-      this.no,
-      this.to,
-      this.status,
-      this.train
-    );
-  }
-}
-
-//fetching the data from an external source
-const gettingData = async () => {
-  const img = document.querySelector(".loader");
-  img.classList.toggle("loader--shown");
-  try {
-    const response = await fetch(
-      "https://classes.codingbootcamp.cz/assets/classes/api/departures-slow.php"
-    );
-
-    const responseData = await response.json();
-
-    console.log(responseData);
-
-    //accessing all the keys and creating a table head based on them
-    const keys = Object.keys(responseData[0]);
-
-    keys.forEach((element) => {
-      document.querySelector("tr").innerHTML += `
-  <th class="table-heading">${element.toUpperCase()}</th>
-  `;
-    });
-
-    // creating the DOM elements for all the array items
-    responseData.forEach((element) => {
-      const train = new Train(
-        element.time,
-        element.train,
-        element.no,
-        element.to,
-        element.status,
-
-        element.track
-      );
-      train.createOnPage();
-    });
-  } catch (e) {
-    console.log(e);
-  } finally {
-    img.classList.toggle("loader--shown");
-  }
-};
-
-//giving functionality to the button
-const button = document.querySelector(".load");
-button.addEventListener("click", () => {
-  button.style.display = "none";
-  gettingData();
-});
-
-//function that creates a DOM based on HTML
-const creatingHTML = (html) => {
-  const div = document.createElement("div");
-  div.innerHTML = html;
-  return div.firstChild;
-};
